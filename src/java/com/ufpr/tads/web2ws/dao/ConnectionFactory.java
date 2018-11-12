@@ -1,4 +1,4 @@
-package com.ufpr.tads.web2.dao;
+package com.ufpr.tads.web2ws.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,18 +11,12 @@ public class ConnectionFactory {
     public Connection getConnection() {
         try {
             Class.forName("org.postgresql.Driver");
-            return DriverManager.getConnection("jdbc:postgresql://localhost/web2", "postgres", "postgres");
+            return DriverManager.getConnection("jdbc:postgresql://localhost/web2ws", "postgres", "postgres");
         } catch (SQLException exception) {
             System.out.println("Erro ao conectar no banco: " + exception);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
-//        try {
-//            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-//            return DriverManager.getConnection("jdbc:mysql://localhost/banco_web2", "root", "root");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        return null;   
     }
 }

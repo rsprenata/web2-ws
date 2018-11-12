@@ -1,8 +1,8 @@
-package com.ufpr.tads.web2.servlets;
+package com.ufpr.tads.web2ws.servlets;
 
-import com.ufpr.tads.web2.beans.Produto;
-import com.ufpr.tads.web2.exceptions.ErroCarregandoProdutoException;
-import com.ufpr.tads.web2.facade.ProdutosFacade;
+import com.ufpr.tads.web2ws.beans.Produto;
+import com.ufpr.tads.web2ws.exceptions.ErroCarregandoProdutoException;
+import com.ufpr.tads.web2ws.facade.ProdutosFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;

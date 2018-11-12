@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ufpr.tads.web2.facade;
-import com.ufpr.tads.web2.beans.Produto;
-import com.ufpr.tads.web2.dao.ProdutoDao;
-import com.ufpr.tads.web2.exceptions.ErroCarregandoProdutoException;
-import com.ufpr.tads.web2.exceptions.ProdutoNaoExisteException;
+package com.ufpr.tads.web2ws.facade;
+import com.ufpr.tads.web2ws.beans.Produto;
+import com.ufpr.tads.web2ws.dao.ProdutoDao;
+import com.ufpr.tads.web2ws.exceptions.ErroCarregandoProdutoException;
+import com.ufpr.tads.web2ws.exceptions.ProdutoNaoExisteException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

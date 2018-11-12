@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ufpr.tads.web2.beans;
+package com.ufpr.tads.web2ws.beans;
 
 /**
  *

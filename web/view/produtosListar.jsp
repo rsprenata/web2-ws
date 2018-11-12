@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Clientes - Listar</title>
+        <title>Produtos - Listar</title>
         
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-4.1.3-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -38,7 +38,7 @@
             </div>
         </nav>
         <div class="container wrapper">
-            <h1>Olá ${logado.nome}</h1>
+          
 
             <c:if test="${msg != null}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -49,27 +49,25 @@
                 </div>
             </c:if>
             <div class="text-center form-group">
-                <a href="ClientesServlet?action=formNew" class="btn btn-success">NOVO</a>
+                <a href="ProdutosServlet?action=formNew" class="btn btn-success">NOVO</a>
             </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>CPF</th>
+                        <th>Código</th>
                         <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Ações</th>
+                        <th>Opções</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${clientes}" var="cliente">
+                    <c:forEach items="${produtos}" var="produto">
                         <tr>
-                            <td><div class="cpf">${cliente.cpf}</div></td>
-                            <td>${cliente.nome}</td>
-                            <td>${cliente.email}</td>
+                            <td>${produto.id}</td>
+                            <td>${produto.nome}</td>
                             <td>
-                                <a href="ClientesServlet?action=show&id=${cliente.id}" class="btn"><i class="fas fa-eye"></i></a>
-                                <a href="ClientesServlet?action=formUpdate&id=${cliente.id}" class="btn"><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-link btnRemover" onclick="confirmarRemover('${cliente.id}')"><i class="fas fa-trash"></i></button>
+                                <a href="ProdutosServlet?action=show&id=${produto.id}" class="btn"><i class="fas fa-eye"></i></a>
+                                <a href="ProdutosServlet?action=formUpdate&id=${produto.id}" class="btn"><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-link btnRemover" onclick="confirmarRemover('${produto.id}')"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -87,7 +85,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Deseja realmente remover este cliente?
+                        Deseja realmente remover este produto?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -102,18 +100,10 @@
         <script src="${pageContext.request.contextPath}/resources/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $(".cpf").mask("000.000.000-00");
-            });
-            function confirmarRemover(idCliente) {
-                $('#modalConfirmarRemover #linkRemover').attr("href", "ClientesServlet?action=remove&id=" + idCliente);
+            function confirmarRemover(idProduto) {
+                $('#modalConfirmarRemover #linkRemover').attr("href", "ProdutosServlet?action=remove&id=" + idProduto);
                 $('#modalConfirmarRemover').modal("show");
             }
         </script>
     </body>
-    <footer class="footer">
-        <div class="footer-copyright text-center">
-            Em caso de problemas contactar a administradora: ${configuracao.email}
-        </div>
-    </footer>
 </html>

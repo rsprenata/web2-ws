@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Index</title>
+        <title>Página inicial</title>
         
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-4.1.3-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -20,7 +20,7 @@
                             <h3 class="card-title">Funcionalidades</h3>
                         </div>
                         <div class="card-body">
-                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/Produto?op=listar">Produtos</a>
+                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/ProdutosServlet?op=listar">Produtos</a>
                             <a class="btn btn-warning" href="${pageContext.request.contextPath}/Usuario?op=listar">Atendimentos</a>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
     </body>
     <footer class="footer">
         <div class="footer-copyright text-center">
-            Sistema de produtos muito loko
+            Sistema de produtos
         </div>
     </footer>
 </html>

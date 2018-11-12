@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
-<jsp:useBean id="configuracao" class="com.ufpr.tads.web2.beans.ConfigBean" scope="application" />
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -36,9 +36,4 @@
         <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
     </body>
-    <footer class="footer">
-        <div class="footer-copyright text-center">
-            Em caso de problemas contactar a administradora: ${configuracao.email}
-        </div>
-    </footer>
 </html>
