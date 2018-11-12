@@ -62,28 +62,21 @@ public class ProdutoDao {
         Connection connection = connectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Cliente cliente = null;
+        Produto produto = null;
         
         try { 
-            stmt = connection.prepareStatement("SELECT * FROM tb_cliente WHERE id_cliente = ?");
+            stmt = connection.prepareStatement("SELECT * FROM tb_produto WHERE id_produto = ?");
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             
             if (rs.next()) {
-                cliente = new Cliente();
+                produto = new Produto();
                 
-                cliente.setId(rs.getInt("id_cliente"));
-                cliente.setCpf(rs.getString("cpf_cliente"));
-                cliente.setNome(rs.getString("nome_cliente"));
-                cliente.setEmail(rs.getString("email_cliente"));
-                cliente.setData(new Date(rs.getDate("data_cliente").getTime()));
-                cliente.setRua(rs.getString("rua_cliente"));
-                cliente.setNr(rs.getInt("nr_cliente"));
-                cliente.setCep(rs.getString("cep_cliente"));
-                cliente.setCidade(CidadesFacade.carregarUma(rs.getInt("id_cidade")));
-            } else throw new ProdutoNaoExisteException();
+                produto.setId(rs.getInt("id_produto"));
+                produto.setNome(rs.getString("nome_produto"));
+            }
         } catch (SQLException exception) {
-            throw new ErroBuscandoClienteException();
+            throw new RuntimeException(exception.getMessage());
         } finally {
             if (rs != null)
                 try { rs.close(); }
@@ -96,20 +89,20 @@ public class ProdutoDao {
                 catch (SQLException exception) { System.out.println("Erro ao fechar conexão. Ex="+exception.getMessage()); }
         }
         
-        return cliente;
+        return produto;
     }
     
-    public void removerUm(Integer id) throws ErroRemovendoClienteException {
+    public void removerUm(Integer id){
         ConnectionFactory connectionFactory = new ConnectionFactory();
         Connection connection = connectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try { 
-            stmt = connection.prepareStatement("DELETE FROM tb_cliente WHERE id_cliente = ?");
+            stmt = connection.prepareStatement("DELETE FROM tb_produto WHERE id_produto = ?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException exception) {
-            throw new ErroRemovendoClienteException();
+            throw new RuntimeException(exception.getMessage());
         } finally {
             if (stmt != null)
                 try { stmt.close(); }
@@ -120,27 +113,19 @@ public class ProdutoDao {
         }
     }
     
-    public void editarUm(Cliente cliente) throws ErroEditandoClienteException {
+    public void editarUm(Produto produto){
         ConnectionFactory connectionFactory = new ConnectionFactory();
         Connection connection = connectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try { 
-            stmt = connection.prepareStatement("UPDATE tb_cliente "
-                    + "SET cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ? , rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade = ? "
-                    + "WHERE id_cliente = ?");
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getEmail());
-            stmt.setDate(4, new java.sql.Date(cliente.getData().getTime()));
-            stmt.setString(5, cliente.getRua());
-            stmt.setInt(6, cliente.getNr());
-            stmt.setString(7, cliente.getCep());
-            stmt.setInt(8, cliente.getCidade().getId());
-            stmt.setInt(9, cliente.getId());
+            stmt = connection.prepareStatement("UPDATE tb_produto "
+                    + "SET nome_produto = ? WHERE id_produto = ?");
+            stmt.setString(1, produto.getNome());
+            stmt.setInt(2, produto.getId());
             stmt.executeUpdate();
         } catch (SQLException exception) {
-            throw new ErroEditandoClienteException();
+            throw new RuntimeException(exception.getMessage());
         } finally {
             if (stmt != null)
                 try { stmt.close(); }
@@ -151,30 +136,18 @@ public class ProdutoDao {
         }
     }
     
-    public void adicionarUm(Cliente cliente) throws ErroInserindoClienteException {
+    public void adicionarUm(Produto produto){
         ConnectionFactory connectionFactory = new ConnectionFactory();
         Connection connection = connectionFactory.getConnection();
         PreparedStatement stmt = null;
-        ResultSet rs = null;
         
         try {
-            stmt = connection.prepareStatement("INSERT INTO tb_cliente (cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade) VALUES "
-                    + "(?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getEmail());
-            stmt.setDate(4, new java.sql.Date(cliente.getData().getTime()));
-            stmt.setString(5, cliente.getRua());
-            stmt.setInt(6, cliente.getNr());
-            stmt.setString(7, cliente.getCep());
-            stmt.setInt(8, cliente.getCidade().getId());
+            stmt = connection.prepareStatement("INSERT INTO tb_produto (nome_produto) VALUES (?)");
+            stmt.setString(1, produto.getNome());
             stmt.executeUpdate();
         } catch (SQLException exception) {
-            throw new ErroInserindoClienteException();
+            throw new RuntimeException(exception.getMessage());
         } finally {
-            if (rs != null)
-                try { rs.close(); }
-                catch (SQLException exception) { System.out.println("Erro ao fechar rs. Ex="+exception.getMessage()); }
             if (stmt != null)
                 try { stmt.close(); }
                 catch (SQLException exception) { System.out.println("Erro ao fechar stmt. Ex="+exception.getMessage()); }

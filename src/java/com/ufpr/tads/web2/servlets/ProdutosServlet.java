@@ -39,129 +39,50 @@ public class ProdutosServlet extends HttpServlet {
             try {
                 produtos = ProdutosFacade.buscarTodos();
 
-                request.setAttribute("clientes", produtos);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/clientesListar.jsp");
+                request.setAttribute("produtos", produtos);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/produtosListar.jsp");
                 rd.forward(request, response);
             } catch (ErroCarregandoProdutoException ex) {
                 request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/portal.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/index.jsp");
                 rd.forward(request, response);
             }
         } else if ("show".equals(action)) {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            Cliente cliente;
-            try {
-                cliente = ClientesFacade.buscar(id);
-
-                request.setAttribute("cliente", cliente);
-                request.setAttribute("estado", EstadosFacade.carregarUm(cliente.getCidade().getIdEstado()));
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/clientesVisualizar.jsp");
-                rd.forward(request, response);
-            } catch (ClienteNaoExisteException | ErroBuscandoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=list");
-                rd.forward(request, response);
-            }
+            Produto produto;
+            produto = ProdutosFacade.buscar(id);
+            request.setAttribute("produto", produto);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/produtosVisualizar.jsp");
+            rd.forward(request, response);
         } else if ("formUpdate".equals(action)) {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            Cliente cliente;
-            try {
-                cliente = ClientesFacade.buscar(id);
-
-                List<Estado> estados = EstadosFacade.buscarTodos();
-
-                request.setAttribute("estados", estados);
-                request.setAttribute("cliente", cliente);
-                request.setAttribute("form", "alterar");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/clientesForm.jsp");
-                rd.forward(request, response);
-            } catch (ClienteNaoExisteException | ErroBuscandoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=list");
-                rd.forward(request, response);
-            }
+            Produto produto;
+            produto = ProdutosFacade.buscar(id);
+            request.setAttribute("produto", produto);
+            request.setAttribute("form", "alterar");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/produtosForm.jsp");
+            rd.forward(request, response);
+            
         } else if ("remove".equals(action)) {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            try {
-                ClientesFacade.remover(id);
-            } catch (ErroRemovendoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-            }
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=list");
+            ProdutosFacade.remover(id);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/ProdutosServlet?action=list");
             rd.forward(request, response);
         } else if ("update".equals(action)) {
-            Cliente cliente = new Cliente();
-            cliente.setId(Integer.parseInt(request.getParameter("id")));
-            cliente.setCpf(request.getParameter("cpf"));
-            cliente.setNome(request.getParameter("nome"));
-            cliente.setEmail(request.getParameter("email"));
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                cliente.setData(formato.parse(request.getParameter("data")));
-            } catch (ParseException ex) {
-                Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cliente.setRua(request.getParameter("rua"));
-            cliente.setNr(Integer.parseInt(request.getParameter("nr")));
-            cliente.setCep(request.getParameter("cep"));
-            Cidade cidade = new Cidade();
-            cidade.setId(Integer.parseInt(request.getParameter("cidade")));
-            cliente.setCidade(cidade);
-
-            try {
-                ClientesFacade.validar(cliente);
-
-                ClientesFacade.alterar(cliente);
-                response.sendRedirect("ClientesServlet");
-            } catch (CPFDuplicadoClienteException | ErroBuscandoClienteException | CPFInvalidoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=formUpdate");
-                rd.forward(request, response);
-            } catch (ErroEditandoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=list");
-                rd.forward(request, response);
-            }
+            Produto produto = new Produto();
+            produto.setId(Integer.parseInt(request.getParameter("id")));
+            produto.setNome(request.getParameter("nome"));
+            ProdutosFacade.alterar(produto);
+            response.sendRedirect("ProdutosServlet");
+            
         } else if ("formNew".equals(action)) {
-            List<Estado> estados = EstadosFacade.buscarTodos();
-
-            request.setAttribute("estados", estados);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/clientesForm.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/produtosForm.jsp");
             rd.forward(request, response);
-            //response.sendRedirect("clientesNovo.jsp");
         } else if ("new".equals(action)) {
-            Cliente cliente = new Cliente();
-            cliente.setCpf(request.getParameter("cpf"));
-            cliente.setNome(request.getParameter("nome"));
-            cliente.setEmail(request.getParameter("email"));
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                cliente.setData(formato.parse(request.getParameter("data")));
-            } catch (ParseException ex) {
-                Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cliente.setRua(request.getParameter("rua"));
-            cliente.setNr(Integer.parseInt(request.getParameter("nr")));
-            cliente.setCep(request.getParameter("cep"));
-            Cidade cidade = new Cidade();
-            cidade.setId(Integer.parseInt(request.getParameter("cidade")));
-            cliente.setCidade(cidade);
-
-            cliente.setId(0);
-            try {
-                ClientesFacade.validar(cliente);
-
-                ClientesFacade.inserir(cliente);
-                response.sendRedirect("ClientesServlet");
-            } catch (CPFDuplicadoClienteException | ErroBuscandoClienteException | CPFInvalidoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=formNew");
-                rd.forward(request, response);
-            } catch (ErroInserindoClienteException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/ClientesServlet?action=list");
-                rd.forward(request, response);
-            }
+            Produto produto = new Produto();
+            produto.setNome(request.getParameter("nome"));
+            ProdutosFacade.inserir(produto);
+            response.sendRedirect("ProdutosServlet");
         }
         
     }

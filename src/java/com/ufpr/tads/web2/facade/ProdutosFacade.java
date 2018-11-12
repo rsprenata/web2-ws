@@ -4,15 +4,13 @@
  * and open the template in the editor.
  */
 package com.ufpr.tads.web2.facade;
-
-import com.ufpr.tads.web2.beans.Atendimento;
-import com.ufpr.tads.web2.beans.Cliente;
 import com.ufpr.tads.web2.beans.Produto;
-import com.ufpr.tads.web2.dao.AtendimentoDao;
-import com.ufpr.tads.web2.dao.ClienteDao;
 import com.ufpr.tads.web2.dao.ProdutoDao;
 import com.ufpr.tads.web2.exceptions.ErroCarregandoProdutoException;
+import com.ufpr.tads.web2.exceptions.ProdutoNaoExisteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,5 +21,21 @@ public class ProdutosFacade {
     public static List<Produto> buscarTodos() throws ErroCarregandoProdutoException {
         return pDao.carregarTodos();
     }
-    
+    public static Produto buscar(int id) {
+        try {
+            return pDao.carregarUm(id);
+        } catch (ProdutoNaoExisteException ex) {
+            Logger.getLogger(ProdutosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public static void remover(int id) {
+        pDao.removerUm(id);
+    }
+    public static void alterar(Produto p){
+        pDao.editarUm(p);
+    }
+    public static void inserir(Produto p) {
+        pDao.adicionarUm(p);
+    }
 }
