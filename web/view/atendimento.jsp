@@ -22,26 +22,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="container navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="ClientesServlet">Cadastro de Clientes</a>
-                </li>               
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Atendimentos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="${pageContext.request.contextPath}/AtendimentoServlet?action=efetuarForm">Efetuar atendimento</a>
-                      <a class="dropdown-item" href="${pageContext.request.contextPath}/AtendimentoServlet?action=mostrar">Mostrar atendimentos</a>
-                    </div>
+                  <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/ProdutosServlet?op=listar">Produtos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="LogoutServlet">Sair</a>
+                  <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/AtendimentoServlet?op=mostrar">Atendimentos</a>
                 </li>
               </ul>
             </div>
         </nav>
         <div class="container wrapper">
-            <h1>Olá ${logado.nome}</h1>
-            
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="card">
@@ -108,7 +97,7 @@
                                 <button class="btn btn-lg btn-success btn-block" type="submit">
                                     ${form == 'alterar' ? 'Alterar' : 'Salvar'}
                                 </button>
-                                <a href="ClientesServlet" class="btn btn-lg btn-light btn-block">Cancelar</a>
+                                <a href="AtendimentoServlet?op=mostrar" class="btn btn-lg btn-light btn-block">Cancelar</a>
                             </form>
                         </div>
                     </div>
