@@ -1,7 +1,7 @@
 package com.ufpr.tads.web2ws.servlets;
 
+
 import com.ufpr.tads.web2ws.beans.Produto;
-import com.ufpr.tads.web2ws.exceptions.ErroCarregandoProdutoException;
 import com.ufpr.tads.web2ws.facade.ProdutosFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,17 +36,13 @@ public class ProdutosServlet extends HttpServlet {
 
         if ("list".equals(action) || null == action || "".equals(action)) {
             List<Produto> produtos;
-            try {
+            
                 produtos = ProdutosFacade.buscarTodos();
 
                 request.setAttribute("produtos", produtos);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/produtosListar.jsp");
                 rd.forward(request, response);
-            } catch (ErroCarregandoProdutoException ex) {
-                request.setAttribute("msg", ex.getMessage());
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/index.jsp");
-                rd.forward(request, response);
-            }
+            
         } else if ("show".equals(action)) {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Produto produto;
