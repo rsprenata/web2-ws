@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             <a class="btn btn-primary" href="${pageContext.request.contextPath}/ProdutosServlet?op=listar">Produtos</a>
-                            <a class="btn btn-warning" href="${pageContext.request.contextPath}/Usuario?op=listar">Atendimentos</a>
+                            <a class="btn btn-warning" href="${pageContext.request.contextPath}/AtendimentoServlet?op=mostrar">Atendimentos</a>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
  */
 package com.ufpr.tads.web2ws.dao;
 
-import com.ufpr.tads.web2ws.beans.Produto;
+import com.ufpr.tads.web2ws.beans.Atendimento;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -18,53 +18,45 @@ import javax.ws.rs.core.Response;
  *
  * @author renata
  */
-public class ProdutoCliente {
+public class AtendimentoCliente {
     public static String enderecoServidor = "http://localhost:8080/web2/webresources";
     
-    public static List<Produto> buscarProdutos() {
+    public static List<Atendimento> buscarAtendimentos() {
         Client client = ClientBuilder.newClient();
         Response resp = client
-                              .target(enderecoServidor + "/produtos")
+                              .target(enderecoServidor + "/atendimentos")
                               .request(MediaType.APPLICATION_JSON)
                               .get();
-        List<Produto> lista = 
+        List<Atendimento> lista = 
                             resp.readEntity(
-                            new GenericType<List<Produto>>() {}
+                            new GenericType<List<Atendimento>>() {}
                             );
         return lista;
     }
     
-    public static Produto buscarUmProduto(Integer idProduto) {
+    public static Atendimento buscarUmAtendimento(Integer idAtendimento) {
         Client client = ClientBuilder.newClient();
         
-        Produto p = client
-                          .target(enderecoServidor + "/produtos/" + idProduto)
+        Atendimento a = client
+                          .target(enderecoServidor + "/atendimentos/" + idAtendimento)
                           .request(MediaType.APPLICATION_JSON)
-                          .get(Produto.class);
-        return p;
+                          .get(Atendimento.class);
+        return a;
     }
     
-    public static void inserir(Produto p) {
+    public static void inserir(Atendimento a) {
         Client client = ClientBuilder.newClient();
         
-        client.target(enderecoServidor + "/produtos")
+        client.target(enderecoServidor + "/atendimentos")
                           .request()
-                          .post(Entity.json(p));
+                          .post(Entity.json(a));
     }
     
-    public static void editar(Produto p) {
+    public static void resolver(Atendimento a) {
         Client client = ClientBuilder.newClient();
         
-        client.target(enderecoServidor + "/produtos/" + p.getId())
+        client.target(enderecoServidor + "/atendimentos/" + a.getId())
                           .request()
-                          .put(Entity.json(p));
-    }
-    
-    public static void excluir(Integer id) {
-        Client client = ClientBuilder.newClient();
-        
-        client.target(enderecoServidor + "/produtos/" + id)
-                          .request()
-                          .delete();
+                          .put(Entity.json(a));
     }
 }

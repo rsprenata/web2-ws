@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/web/view/produtosForm.jsp</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/web/view/produtosVisualizar.jsp</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/web/view/produtosListar.jsp</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/src/java/com/ufpr/tads/web2ws/facade/ProdutosFacade.java</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/web/view/index.jsp</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/src/java/com/ufpr/tads/web2ws/dao/ProdutoCliente.java</file>
-            <file>file:/Users/renata/NetBeansProjects/web2-ws/src/java/com/ufpr/tads/web2ws/servlets/ProdutosServlet.java</file>
+            <file>file:/home/juniorrek/web2-ws/src/java/com/ufpr/tads/web2ws/dao/ProdutoCliente.java</file>
         </group>
     </open-files>
 </project-private>
